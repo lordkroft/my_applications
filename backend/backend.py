@@ -16,12 +16,12 @@ CLIENT = boto3.client(
     aws_secret_access_key=os.environ["SECRET_KEY"],
 )
 
-FRONT_PATH = pathlib.Path(__file__).parent.absolute()
+FRONT_PATH = pathlib.Path(__file__).parent.parent.absolute()
 
 
 @app.route("/", methods=["GET"])
 def get_form():
-    with open(FRONT_PATH / "page.html") as page_file:
+    with open(FRONT_PATH / "front" / "index.html") as page_file:
         return page_file.read()
 
 
