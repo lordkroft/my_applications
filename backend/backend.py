@@ -1,5 +1,5 @@
 import os
-import pathlib
+#import pathlib
 import boto3
 from flask import Flask
 from flask import request
@@ -11,18 +11,18 @@ app = Flask(__name__)
 
 CLIENT = boto3.client(
     "s3",
-    region_name=os.environ["REGION"],
-    aws_access_key_id=os.environ["ACCESS_KEY"],
-    aws_secret_access_key=os.environ["SECRET_KEY"],
+    region_name= 'us-east-2',
 )
 
-FRONT_PATH = pathlib.Path(__file__).parent.absolute()
 
 
-@app.route("/", methods=["GET"])
-def get_form():
-    with open(FRONT_PATH / "page.html") as page_file:
-        return page_file.read()
+#FRONT_PATH = pathlib.Path("/home/uladzimir/projects/my_applications/front/code").absolute()
+
+
+#@app.route("/", methods=["GET"])
+#def get_form():
+#    with open(FRONT_PATH / "index.html") as page_file:
+#        return page_file.read()
 
 
 @app.route("/save_to_s3", methods=["POST"])
