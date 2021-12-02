@@ -24,7 +24,7 @@
 
     {
       "name": "flask",
-      "image": "413752907951.dkr.ecr.us-east-2.amazonaws.com/frontend:latest",
+      "image": "413752907951.dkr.ecr.us-east-2.amazonaws.com/backend:latest",
       "essential": true,
       "memory": 128,
       "logConfiguration": {
