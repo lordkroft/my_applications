@@ -4,6 +4,9 @@ pipeline{
     }
 
     agent any
+    triggers {
+    githubPush()
+    }
     parameters{
         string(defaultValue: 'service', name: 'ECS_SERVICE')
         string(defaultValue: 'my_ecs_app', name: 'ECS_CLUSTER')
