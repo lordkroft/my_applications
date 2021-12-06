@@ -11,7 +11,9 @@ app = Flask(__name__)
 
 CLIENT = boto3.client(
     "s3",
-    region_name= 'us-east-2',
+    region_name= 'us-east-2' #os.environ["REGION"],
+#    aws_access_key_id=os.environ["ACCESS_KEY"],
+#    aws_secret_access_key=os.environ["SECRET_KEY"]
 )
 
 
@@ -31,10 +33,12 @@ def save_to_s3():
     CLIENT.put_object(
         **{
             "Body": data,
-            "Bucket": 'my-test-musorka',
+            "Bucket": 'my-test-musorka' #os.environ["BUCKET_NAME"],
             "Key": datetime.utcnow().strftime("%Y/%m/%d/%H%M%S.txt"),
         }
     )
     return redirect("/")
 
-
+@app.route('/index', methods = ['GET'])
+def index():
+    return Response(status=200)

@@ -1,14 +1,14 @@
 pipeline{
     agent any
     parameters{
-        string(defaultValue: 'us-east-2', name: ${AWS_DEFAULT_REGION})
-        string(name: ${IMAGE_TAG})
+        string(defaultValue: 'us-east-2', name: 'AWS_DEFAULT_REGION')
+        string(name: 'IMAGE_TAG)
     }
 
     stages{
         stage("Building image"){
             steps{
-                    sh "docker build -t ${AWS_ACCOUNT_ID}.dkr.ecr.AWS_DEFAULT_REGION.amazonaws.com/spase-registry:${params.IMAGE_TAG} ." 
+                    sh "docker build -t 413752907951.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/spase-registry:${params.IMAGE_TAG} ." 
                 }
             }
         stage("Pushing to ECR"){
