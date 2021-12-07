@@ -1,12 +1,11 @@
+properties([pipelineTriggers([githubPush()])])
+
 pipeline{
     options {
         skipDefaultCheckout true
     }
 
     agent any
-    triggers {
-    githubPush()
-    }
     parameters{
         string(defaultValue: 'service', name: 'ECS_SERVICE')
         string(defaultValue: 'my_ecs_app', name: 'ECS_CLUSTER')
@@ -18,7 +17,6 @@ pipeline{
         string(defaultValue: 'master', name: 'BRANCH', description: 'task_definition file')
         booleanParam(name:'UPDATE', defaultValue: false, description: 'Update ECS service?')
     }
-
     stages{  
         stage("Checkout to target branch"){
             steps{
