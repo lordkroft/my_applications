@@ -16,6 +16,7 @@ pipeline{
         string(defaultValue: 'task_defenition_app.json', name: 'PATH', description: 'task_definition file')
         string(defaultValue: 'master', name: 'BRANCH', description: 'task_definition file')
 	string(defaultValue: 'true', name: 'UPDATE')
+        string(defaultValue: 'latest', name: 'IMAGE_TAG')
     }
     stages{  
         stage("Checkout to target branch"){
@@ -26,7 +27,36 @@ pipeline{
             }
         }
     
-            
+        
+        stage("Building image"){
+            steps{
+                    sh "docker build -t 413752907951.dkr.ecr.${params.REGION}.amazonaws.com/frontend:${params.IMAGE_TAG} ." 
+                    sh "docker build -t 413752907951.dkr.ecr.${params.REGION}.amazonaws.com/backend:${params.IMAGE_TAG} ."
+                }
+            }
+        stage("Pushing to ECR"){
+            steps{
+                withCredentials([aws(accessKeyVariable: ${AWS_ACCESS_KEY_ID}, credentialsId: 'lordkroft', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh "aws ecr get-login-password --region ${params.REGION} | docker login --username AWS --password-stdin 413752907951.dkr.ecr.${params.REGION}.amazonaws.com"
+                    sh "docker push ${AWS_ACCESS_KEY_ID}.dkr.ecr.${params.REGION}.amazonaws.com/space-registry:${params.IMAGE_TAG}"    
+                }
+            }
+
+        }
+    
+
+    post{
+        success{
+            echo "YES!!! Docker image has been pushed. Tag is :${params.IMAGE_TAG}"
+        }
+        failure{
+            echo "Too bad. Build is failed."
+
+        }
+    }
+        
+
+     
         stage("Get current Task Definition"){
             steps{
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'lordkroft', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
