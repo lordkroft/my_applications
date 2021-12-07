@@ -45,15 +45,15 @@ pipeline{
         }
     
 
-    post{
-        success{
-            echo "YES!!! Docker image has been pushed. Tag is :${params.IMAGE_TAG}"
-        }
-        failure{
-            echo "Too bad. Build is failed."
-
-        }
-    }
+//    post{
+//        success{
+//            echo "YES!!! Docker image has been pushed. Tag is :${params.IMAGE_TAG}"
+//        }
+//        failure{
+//            echo "Too bad. Build is failed."
+//
+//        }
+//    }
         
 
      
