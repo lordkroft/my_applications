@@ -19,8 +19,8 @@ pipeline{
     stages{  
         stage("Checkout to target branch"){
             steps{
-                dir("${params.BRANCH}-${BUILD_NUMBER}"){
-                    git url: "https://github.com/lordkroft/my_applications.git", credentialsId: 'ddfd73cb-1789-4fd9-8ac4-21f81b8f5407', branch: "${params.BRANCH}", poll: true
+                dir("master-${BUILD_NUMBER}"){
+                    git url: "https://github.com/lordkroft/my_applications.git", credentialsId: 'ddfd73cb-1789-4fd9-8ac4-21f81b8f5407', branch: "master", poll: true
                 }
             }
         }
@@ -28,7 +28,7 @@ pipeline{
             
         stage("Get current Task Definition"){
             steps{
-                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS_KEYS', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'lordkroft', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh "aws ecs describe-services --service ${params.ECS_SERVICE} --cluster ${params.ECS_CLUSTER} --region ${params.REGION}"
                     sh "aws ecs describe-task-definition --task-definition ${params.FAMILY}:${params.REVISION} --region ${params.REGION}"
                 }
@@ -41,7 +41,7 @@ pipeline{
                 }
             }
             steps{
-                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS_KEYS', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'lordkroft', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh "aws ecs register-task-definition --region ${params.REGION} --family ${params.FAMILY} --cli-input-json file://${params.PATH}"
                 }
             }
@@ -53,7 +53,7 @@ pipeline{
                 }
             }
             steps{
-                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS_KEYS', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'lordkroft', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh "aws ecs update-service --region ${params.REGION} --cluster ${params.ECS_CLUSTER} --service ${params.ECS_SERVICE} --task-definition ${params.TASK_DEFINITION}:${params.NEW_REVISION} --force-new-deployment --health-check-grace-period-seconds 180"
                 }
             }
