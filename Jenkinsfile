@@ -15,7 +15,6 @@ pipeline{
 	string(defaultValue: 'latest', name: 'REVISION', description: 'Previous ver of task_definition file')
         string(defaultValue: 'task_defenition_app.json', name: 'PATH', description: 'task_definition file')
         string(defaultValue: 'master', name: 'BRANCH', description: 'task_definition file')
-#        booleanParam(name:'UPDATE', defaultValue: true, description: 'Update ECS service?')
     }
     stages{  
         stage("Checkout to target branch"){
