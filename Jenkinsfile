@@ -21,7 +21,7 @@ pipeline{
         stage("Checkout to target branch"){
             steps{
                 dir("${params.BRANCH}-${BUILD_NUMBER}"){
-                    git url: "https://github.com/lordkroft/my_applications.git", credentialsId: "lordkroft", branch: "${params.BRANCH}", poll: true
+                    git url: "https://github.com/lordkroft/my_applications.git", credentialsId: 'lordkroft', branch: "${params.BRANCH}", poll: true
                 }
             }
         }
