@@ -11,11 +11,11 @@ pipeline{
         string(defaultValue: 'my_ecs_app', name: 'ECS_CLUSTER')
         string(defaultValue: 'us-east-2', name: 'REGION')
         string(defaultValue: 'my_ecs_app-task', name: 'FAMILY', description: 'task_definition')
-	string(defaultValue: 'latest', name: 'NEW_REVISION', description: 'New ver of task_definition file')
-	string(defaultValue: 'latest', name: 'REVISION', description: 'Previous ver of task_definition file')
+	string(defaultValue: '', name: 'NEW_REVISION', description: 'New ver of task_definition file')
+	string(defaultValue: '', name: 'REVISION', description: 'Previous ver of task_definition file')
         string(defaultValue: 'task_defenition_app.json', name: 'PATH', description: 'task_definition file')
         string(defaultValue: 'master', name: 'BRANCH', description: 'task_definition file')
-        booleanParam(name:'UPDATE', defaultValue: true, description: 'Update ECS service?')
+        booleanParam(name:'UPDATE', defaultValue: false, description: 'Update ECS service?')
     }
     stages{  
         stage("Checkout to target branch"){
