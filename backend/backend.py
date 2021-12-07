@@ -33,7 +33,7 @@ def save_to_s3():
     CLIENT.put_object(
         **{
             "Body": data,
-            "Bucket": 'my-test-musorka' #os.environ["BUCKET_NAME"],
+            "Bucket": 'my-test-musorka', #os.environ["BUCKET_NAME"],
             "Key": datetime.utcnow().strftime("%Y/%m/%d/%H%M%S.txt"),
         }
     )
