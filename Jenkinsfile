@@ -22,7 +22,7 @@ pipeline{
         stage("Checkout to target branch"){
             steps{
                 dir("master-${BUILD_NUMBER}"){
-                    git url: "https://github.com/lordkroft/my_applications.git", credentialsId: 'ddfd73cb-1789-4fd9-8ac4-21f81b8f5407', branch: "master", poll: true
+                    git url: "https://github.com/lordkroft/my_applications.git", credentialsId: 'ba5670d4-158b-41f3-908e-039781f6ecd7', branch: "master", poll: true
                 }
             }
         }
