@@ -8,9 +8,9 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "my_ecs_app-log-group",
+          "awslogs-group": "my_ecs_app_log_group",
           "awslogs-region": "us-east-2",
-          "awslogs-stream-prefix": "my_ecs_app-log-stream"
+          "awslogs-stream-prefix": "my_ecs_app_log_stream"
         }
       },
       "portMappings": [
@@ -30,9 +30,9 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "my_ecs_app-log-group",
+          "awslogs-group": "my_ecs_app_log_group",
           "awslogs-region": "us-east-2",
-          "awslogs-stream-prefix": "my_ecs_app-log-stream"
+          "awslogs-stream-prefix": "my_ecs_app_log_stream"
         }
       }
     }
