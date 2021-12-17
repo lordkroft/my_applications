@@ -41,7 +41,7 @@ pipeline{
             steps{
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'lordkroft', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh "/usr/local/bin/aws ecs describe-services --service service --cluster my_ecs_app --region us-east-2"
-                    sh "/usr/local/bin/aws ecs describe-task-definition --task-definition my_ecs_app-task:${params.REVISION} --region us-east-2"
+                    sh "/usr/local/bin/aws ecs describe-task-definition --task-definition my_ecs_app_task:${params.REVISION} --region us-east-2"
                 }
             }
         }
@@ -53,7 +53,7 @@ pipeline{
             }
             steps{
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'lordkroft', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                sh "/usr/local/bin/aws ecs register-task-definition --region us-east-2 --family my_ecs_app-task --cli-input-json file://task_defenition_app.json" 
+                sh "/usr/local/bin/aws ecs register-task-definition --region us-east-2 --family my_ecs_app_task --cli-input-json file://task_defenition_app.json" 
                 }
             }
         }
@@ -65,7 +65,7 @@ pipeline{
             }
             steps{
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'lordkroft', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    sh "/usr/local/bin/aws ecs update-service --region us-east-2 --cluster my_ecs_app --service service --task-definition my_ecs_app-task:${params.NEW_REVISION} --force-new-deployment --health-check-grace-period-seconds 180"
+                    sh "/usr/local/bin/aws ecs update-service --region us-east-2 --cluster my_ecs_app --service service --task-definition my_ecs_app_task:${params.NEW_REVISION} --force-new-deployment --health-check-grace-period-seconds 180"
                 }
             }
 
