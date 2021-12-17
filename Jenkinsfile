@@ -20,8 +20,8 @@ pipeline{
             steps{
                     sh "pwd"
                     sh "ls -la"
-                    sh "docker build  -t 413752907951.dkr.ecr.us-east-2.amazonaws.com/frontend:'IMAGE_TAG' -f front/Dockerfile ." 
-                    sh "docker build  -t 413752907951.dkr.ecr.us-east-2.amazonaws.com/backend:'IMAGE_TAG' -f backend/Dockerfile ."
+                    sh "docker build  -t 413752907951.dkr.ecr.us-east-2.amazonaws.com/frontend:${params.IMAGE_TAG} -f front/Dockerfile ." 
+                    sh "docker build  -t 413752907951.dkr.ecr.us-east-2.amazonaws.com/backend:${params.IMAGE_TAG} -f backend/Dockerfile ."
                 }
             }
         stage("Pushing to ECR"){
