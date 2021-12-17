@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  nginx-front:
+    image: 413752907951.dkr.ecr.us-east-2.amazonaws.com/frontend:latest
+          #   build: ./front
+    container_name: nginx-front
+    restart: always
+    ports:
+      - 8080:8080
+    links:
+      - flask
+        #    volumes:
+        #      - ./nginx/conf.d:/etc/nginx/conf.d
+        #      - ./logs/nginx:/var/log/nginx:rw
+    logging:
+      driver: journald
+
+
+  flask:
+          #    build: ./back
+    image: 413752907951.dkr.ecr.us-east-2.amazonaws.com/backend:latest
+    container_name: flask
+    restart: always
+    ports:
+       - 5000:5000
+    env_file:
+          - .env
+    logging:
+      driver: journald  
+
+
+volumes:
+    nginx-front:
+      driver: local
+    flask:
+      driver: local
