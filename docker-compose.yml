@@ -7,7 +7,7 @@ services:
     container_name: nginx-front
     restart: always
     ports:
-      - 8080:8080
+      - 80:80
     links:
       - flask
         #    volumes:
